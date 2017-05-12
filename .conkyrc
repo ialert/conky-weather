@@ -44,11 +44,11 @@ conky.text = [[
 ${execi 300 curl -s "http://wxdata.weather.com/wxdata/weather/local/$template3?cc=*&unit=m&dayf=3&locale=$template2" -o ~/.cache/forecast.xml}\
 \
 # Сurrent weather text
-${alignr 40}${voffset 15} ${execi 300 awk -F'[<|>]' '/<r/{print $3}'  ~/.cache/forecast.xml}
-${alignr 40}${voffset 15} ${execi 300 awk -F'[<|>]' '/<hmid/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'} %
-${alignr 40}${voffset 15} ${execi 300 awk -F'[<|>]' '/<s>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'} m/s 
-${alignr 40}${voffset 15} ${execi 300 awk -F'[<|>]' '/<sunr>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'}
-${alignr 40}${voffset 15} ${execi 300 awk -F'[<|>]' '/<suns>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'}\
+${alignr 40}${voffset 15} ${execi 310 awk -F'[<|>]' '/<r/{print $3}'  ~/.cache/forecast.xml}
+${alignr 40}${voffset 15} ${execi 310 awk -F'[<|>]' '/<hmid/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'} %
+${alignr 40}${voffset 15} ${execi 310 awk -F'[<|>]' '/<s>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'} m/s 
+${alignr 40}${voffset 15} ${execi 310 awk -F'[<|>]' '/<sunr>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'}
+${alignr 40}${voffset 15} ${execi 310 awk -F'[<|>]' '/<suns>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'}\
 # Сurrent weather images
 ${image $template1/pressure.png -p 190,15 -s 16x16}\
 ${image $template1/humidity.png -p 190,45 -s 16x16}\
@@ -57,30 +57,30 @@ ${image $template1/sunrise.png -p 190,105 -s 16x16}\
 ${image $template1/sunset.png -p 190,135 -s 16x16}\
 \
 # Current weather condition icon
-${execi 300 cp -f $template1/weather-icons/$(awk -F'[<|>]' '/<icon>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}').png ~/.cache/c_weather.png}
+${execi 310 cp -f $template1/weather-icons/$(awk -F'[<|>]' '/<icon>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}').png ~/.cache/c_weather.png}
 ${image ~/.cache/c_weather.png -p 0,25 -s 64x64}\
 \
 \
 # Current weather condition
-${font Droid Sans:size=48}${goto 0}${voffset -50}${execi 300 awk -F'[<|>]' '/tmp>/{print $3}'  ~/.cache/forecast.xml}°${font}\
-${font Droid Sans:size=12}${goto 0}${voffset 30} ${execi 300 awk -F'[<|>]' '/<t>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'}${font}\
+${font Droid Sans:size=48}${goto 0}${voffset -50}${execi 310 awk -F'[<|>]' '/tmp>/{print $3}'  ~/.cache/forecast.xml}°${font}\
+${font Droid Sans:size=12}${goto 0}${voffset 30} ${execi 310 awk -F'[<|>]' '/<t>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'}${font}\
 
 # Day names
-${voffset 30}${alignc 70}${execi 300 LANG=${template2} LC_TIME=${template2} date +%^a}\
-${alignc}${execi 300 LANG=${template2} LC_TIME=${template2} date -d +1day +%^a}\
-${alignc -70}${execi 300 LANG=${template2} LC_TIME=${template2} date -d +2day +%^a}\
+${voffset 30}${alignc 70}${execi 310 LANG=${template2} LC_TIME=${template2} date +%^a}\
+${alignc}${execi 310 LANG=${template2} LC_TIME=${template2} date -d +1day +%^a}\
+${alignc -70}${execi 310 LANG=${template2} LC_TIME=${template2} date -d +2day +%^a}\
 
-${execi 300 cp -f $template1/weather-icons/$(awk -F'[<|>]' '/<icon>(.+)<\/icon>/{print $3}'  ~/.cache/forecast.xml  | sed -n -e '3{p;q}').png ~/.cache/n1_weather.png}\
+${execi 310 cp -f $template1/weather-icons/$(awk -F'[<|>]' '/<icon>(.+)<\/icon>/{print $3}'  ~/.cache/forecast.xml  | sed -n -e '3{p;q}').png ~/.cache/n1_weather.png}\
 ${image ~/.cache/n1_weather.png -p 0,245 -s 32x32}\
 
-${execi 300 cp -f $template1/weather-icons/$(awk -F'[<|>]' '/<icon/{print $3}'  ~/.cache/forecast.xml | sed -n -e '5{p;q}').png ~/.cache/n2_weather.png}\
+${execi 310 cp -f $template1/weather-icons/$(awk -F'[<|>]' '/<icon/{print $3}'  ~/.cache/forecast.xml | sed -n -e '5{p;q}').png ~/.cache/n2_weather.png}\
 ${image ~/.cache/n2_weather.png -p 82,245 -s 32x32}\
 
-${execi 300 cp -f $template1/weather-icons/$(awk -F'[<|>]' '/<icon/{print $3}'  ~/.cache/forecast.xml | sed -n -e '7{p;q}').png ~/.cache/n3_weather.png}\
+${execi 310 cp -f $template1/weather-icons/$(awk -F'[<|>]' '/<icon/{print $3}'  ~/.cache/forecast.xml | sed -n -e '7{p;q}').png ~/.cache/n3_weather.png}\
 ${image ~/.cache/n3_weather.png -p 164,245 -s 32x32}\
 
-${voffset 5}${goto 0} ${execi 300 awk -F'[<|>]' '/<low>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'}°/ ${execi 300 awk -F'[<|>]' '/<hi>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'}°\
-${goto 75} ${execi 300 awk -F'[<|>]' '/<low>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '2{p;q}'}°/ ${execi 300 awk -F'[<|>]' '/<hi>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '2{p;q}'}°\
-${goto 160} ${execi 300 awk -F'[<|>]' '/<low>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '3{p;q}'}°/ ${execi 300 awk -F'[<|>]' '/<hi>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '3{p;q}'}°\
+${voffset 5}${goto 0} ${execi 310 awk -F'[<|>]' '/<low>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'}°/ ${execi 310 awk -F'[<|>]' '/<hi>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'}°\
+${goto 75} ${execi 310 awk -F'[<|>]' '/<low>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '2{p;q}'}°/ ${execi 310 awk -F'[<|>]' '/<hi>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '2{p;q}'}°\
+${goto 160} ${execi 310 awk -F'[<|>]' '/<low>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '3{p;q}'}°/ ${execi 310 awk -F'[<|>]' '/<hi>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '3{p;q}'}°\
 
 ]];
