@@ -70,7 +70,7 @@ ${voffset 30}${alignc 70}${execi 300 LANG=${template2} LC_TIME=${template2} date
 ${alignc}${execi 300 LANG=${template2} LC_TIME=${template2} date -d +1day +%^a}\
 ${alignc -70}${execi 300 LANG=${template2} LC_TIME=${template2} date -d +2day +%^a}\
 
-${execi 300 cp -f $template1/weather-icons/$(awk -F'[<|>]' '/<icon/{print $3}'  ~/.cache/forecast.xml | sed -n -e '3{p;q}').png ~/.cache/n1_weather.png}\
+${execi 300 cp -f $template1/weather-icons/$(awk -F'[<|>]' '/<icon>(.+)<\/icon>/{print $3}'  ~/.cache/forecast.xml  | sed -n -e '3{p;q}').png ~/.cache/n1_weather.png}\
 ${image ~/.cache/n1_weather.png -p 0,245 -s 32x32}\
 
 ${execi 300 cp -f $template1/weather-icons/$(awk -F'[<|>]' '/<icon/{print $3}'  ~/.cache/forecast.xml | sed -n -e '5{p;q}').png ~/.cache/n2_weather.png}\
