@@ -3,6 +3,7 @@ conky.config = {
 	update_interval = 1,
 	double_buffer = true,
 	no_buffers = true,
+	imlib_cache_size = 0,
 
 	draw_shades = false,
 	draw_outline = false,
