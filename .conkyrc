@@ -37,17 +37,23 @@ conky.config = {
 	template1 = '~/.weather-assets/themes/default',
 	template2 = 'en_US',
 	template3 = 'UPXX0014',
+	template4 = "m",
 
 }
 
 conky.text = [[
 \
-${execi 300 curl -s "http://wxdata.weather.com/wxdata/weather/local/$template3?cc=*&unit=m&dayf=3&locale=$template2" -o ~/.cache/forecast.xml}\
+${execi 300 curl -s "http://wxdata.weather.com/wxdata/weather/local/$template3?cc=*&unit=$template4&dayf=3&locale=$template2" -o ~/.cache/forecast.xml}\
 \
 # Сurrent weather text
 ${alignr 40}${voffset 15} ${execi 310 awk -F'[<|>]' '/<r/{print $3}'  ~/.cache/forecast.xml}
-${alignr 40}${voffset 15} ${execi 310 awk -F'[<|>]' '/<hmid/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'} %
-${alignr 40}${voffset 15} ${execi 310 awk -F'[<|>]' '/<s>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'} m/s 
+${alignr 40}${voffset 15} ${execi 310 awk -F'[<|>]' '/<hmid/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'} %\
+${if_match "$template4" == "m"}
+${alignr 40}${voffset 15}${execi 310 awk -F'[<|>]' '/<s>/{printf "%d\n", $3*1000/3600}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'} m/s 
+${endif}\
+${if_match "$template4" == "i"}
+${alignr 40}${voffset 15}${execi 310 awk -F'[<|>]' '/<s>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'} mi/h 
+${endif}\
 ${alignr 40}${voffset 15} ${execi 310 awk -F'[<|>]' '/<sunr>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'}
 ${alignr 40}${voffset 15} ${execi 310 awk -F'[<|>]' '/<suns>/{print $3}'  ~/.cache/forecast.xml | sed -n -e '1{p;q}'}\
 # Сurrent weather images
