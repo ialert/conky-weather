@@ -20,7 +20,10 @@ conky.config = {
 
 	use_xft = true,
 	xftalpha = 0,
+
+	-- Default font
 	font = 'Droid Sans:size=10',
+
 	text_buffer_size = 256,
 	override_utf8_locale = true,
 
@@ -30,13 +33,21 @@ conky.config = {
 	maximum_width = 220,
 	minimum_height = 490,
 
+	-- Widget alignment
 	alignment = top_right,
 	gap_x = 1200,
 	gap_y = 1000,
 
+	-- Icons theme location
 	template1 = '~/.weather-assets/themes/default',
+
+	-- Text locale
 	template2 = 'en_US',
-	template3 = 'UPXX0014',
+
+	-- Location code.See https://weather.codes/
+	template3 = 'UKXX3326',
+
+	-- Temp Unit (m - metric, i - imperial)
 	template4 = "m",
 
 }
